@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "AkkuratLLWeb-Black";
+  src: url("./fonts/AkkuratLLWeb-Black.woff2");
+}
+@font-face {
+  font-family: "AkkuratLLWeb-Bold";
+  src: url("./fonts/AkkuratLLWeb-Bold.woff2");
+}
+@font-face {
+  font-family: "AkkuratLLWeb-Regular";
+  src: url("./fonts/AkkuratLLWeb-Regular.woff2");
+}
+@font-face {
+  font-family: "AkkuratMonoLLWeb-Bold";
+  src: url("./fonts/AkkuratMonoLLWeb-Bold.woff2");
+}
+@font-face {
+  font-family: "AkkuratMonoLLWeb-Regular.";
+  src: url("./fonts/AkkuratMonoLLWeb-Regular.woff2");
+}
+@font-face {
+  font-family: "GT-America-Compressed-Black";
+  src: url("./fonts/GT-America-Compressed-Black.woff2");
+}
+@font-face {
+  font-family: "GT-America-Compressed-Medium";
+  src: url("./fonts/GT-America-Compressed-Medium.woff2");
+}
+body {
+  font-family: AkkuratLLWeb-Regular,-apple-system,BlinkMacSystemFont,sans-serif;
+}
+html,
+body,
+ul {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+h4 {
+  margin: 0;
+}
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-space {
+  display: flex;
+  justify-content: space-between;
+}
+.flex-middle {
+  display: flex;
+  align-items: center;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.flex-start {
+  display: flex;
+  align-items: flex-start;
+}
+.flex-col {
+  flex-direction: column;
+}
+.d-button {
+  font-size: 15px;
+  line-height: 15px;
+  font-family: AkkuratLLWeb-Bold;
+  color: rgb(153, 153, 153);
+  cursor: pointer;
+  padding: 8px 13px;
+  border-radius: 100px;
+}
+
+.d-button:hover {
+  background: rgb(37, 37, 37);
+  /* color: rgb(236, 232, 227); */
+}
+.d-button.active {
+  color: rgb(236, 232, 227);
+}
+
+.e-button {
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  padding: 0px 14px;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  outline: none;
+  white-space: nowrap;
+  color: rgb(236, 232, 227);
+  transition: all 0.1s ease-in-out 0s;
+  background: rgb(37, 37, 37);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  font-family: AkkuratMonoLLWeb-Regular;
+  height: 41px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.e-button.active,
+.e-button:hover {
+  background: rgb(43, 42, 42);
+}
