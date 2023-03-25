@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container">
+  <div>
     <Header></Header>
     <div class="flex-start" style="margin-top: 10px">
       <LeftMenu></LeftMenu>
@@ -20,11 +20,4 @@ const route = useRoute();
 const router = useRouter();
 onMounted(() => {});
 </script>
-<style scoped>
-.layout-container {
-  padding: 25px;
-  background-color: rgb(17, 17, 19);
-  box-sizing: border-box;
-  min-height: 100vh;
-}
-</style>
+<style scoped></style>

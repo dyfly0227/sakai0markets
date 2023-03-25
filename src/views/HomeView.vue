@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="header flex-middle">
       <div class="flex-middle">
         <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
@@ -174,12 +174,6 @@ const router = useRouter();
 onMounted(() => {});
 </script>
 <style scoped>
-.container {
-  padding: 25px;
-  background-color: rgb(17, 17, 19);
-  box-sizing: border-box;
-  min-height: 100vh;
-}
 .header {
   display: flex;
   height: 41px;

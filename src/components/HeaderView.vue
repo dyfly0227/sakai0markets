@@ -38,15 +38,15 @@ const menus = [
   },
   {
     title: "Futures",
-    url: "/dashboard/markets",
+    url: "/futures",
   },
   {
     title: "Exchange",
-    url: "/dashboard/markets",
+    url: "",
   },
   {
     title: "Leaderboard",
-    url: "/dashboard/markets",
+    url: "/leaderboard",
   },
 ];
 const isActive = (keyword) => {

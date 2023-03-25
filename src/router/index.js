@@ -11,6 +11,21 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/leaderboard",
+      name: "leaderboard",
+      component: () => import("../views/Leaderboard.vue"),
+    },
+    {
+      path: "/leaderboard",
+      name: "leaderboard",
+      component: () => import("../views/Leaderboard.vue"),
+    },
+    {
+      path: "/futures",
+      name: "futures",
+      component: () => import("../views/Futures.vue"),
+    },
+    {
       path: "/dashboard",
       component: LayoutView,
       children: [

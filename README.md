@@ -1,29 +1,11 @@
-# sakai-markets
+## 运行项目
+1. 安装node环境
+2. 进入项目后执行`npm i`
+3. 启动`npm run dev`
 
-This template should help get you started developing with Vue 3 in Vite.
+## 修改内容
+1. 修改图片路径在`assets/`文件夹下
+2. 修改文字在`views/`文件下对应的页面中直接修改
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+## 打包
+执行`npm run build`，复制`dist`文件夹到`nginx`
