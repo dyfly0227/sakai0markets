@@ -59,6 +59,10 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.flex-around {
+  display: flex;
+  justify-content: space-around
+}
 .flex-middle {
   display: flex;
   align-items: center;
@@ -113,6 +117,17 @@ body {
   align-items: center;
   justify-content: center;
 }
+.e-button svg {
+  fill: rgb(236, 232, 227);
+  margin-right: 5px;
+}
+.e-button.trans svg {
+  fill: rgb(120, 120, 120);
+}
+.e-button.trans.active svg,
+.e-button.trans:hover svg{
+  fill: rgb(236, 232, 227);;
+}
 .e-button.trans {
   background-color: transparent;
   color: rgb(120, 120, 120);
@@ -132,6 +147,17 @@ body {
 .e-button:hover {
   background: rgb(43, 42, 42);
 }
+
+.e-button.disabled {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: transparent!important;
+  cursor: not-allowed;
+  color: rgb(53, 51, 51)!important;
+}
+.e-button.disabled svg {
+  color: rgb(53, 51, 51)!important;
+}
+
 .border {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
