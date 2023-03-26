@@ -189,6 +189,10 @@
           </li>
         </ul>
       </div>
+      <!-- k线图 -->
+      <div style="height: 500px; margin-top: 15px">
+        <FuturesChart :b="btnsConfig[cur].t1" />
+      </div>
 
       <div class="flex-space btns-area">
         <div class="flex-middle">
@@ -196,6 +200,7 @@
             class="e-button trans"
             :class="{ active: btnIndex === 0 }"
             @click="btnIndex = 0"
+            style="margin-left: 0"
           >
             <div>
               <svg
@@ -359,6 +364,95 @@
           </div>
         </div>
       </div>
+
+      <div v-if="btnIndex === 0">
+        <div
+          class="border flex-middle three-wrap"
+          style="padding: 15px 15px 5px"
+        >
+          <div class="flex-1">
+            <ul>
+              <li class="flex-space">
+                FLOW-PERP
+                <span style="color: rgb(127, 212, 130)">$0.9592</span>
+              </li>
+              <li>
+                Side
+                <span>-</span>
+              </li>
+              <li>
+                Size
+                <span>-</span>
+              </li>
+            </ul>
+          </div>
+          <div class="divide"></div>
+          <div class="flex-1">
+            <ul>
+              <li class="flex-space">
+                Net Funding
+                <span>-</span>
+              </li>
+              <li>
+                Unrealized P&L
+                <span>-</span>
+              </li>
+              <li>
+                Realized P&L
+                <span>-</span>
+              </li>
+            </ul>
+          </div>
+          <div class="divide"></div>
+          <div class="flex-1">
+            <ul>
+              <li class="flex-space">
+                Leverage
+                <span>-</span>
+              </li>
+              <li>
+                Liq Price
+                <span>-</span>
+              </li>
+              <li>
+                Avg Entry
+                <span>-</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="e-button" style="margin: 15px 0">
+          Futures will be live on April 1,2023.
+          <svg
+            width="7"
+            height="7"
+            viewBox="0 0 7 7"
+            fill="#ECE8E3"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            class="sc-1b0f3b65-1 bCWgOt"
+          >
+            <path
+              d="M4.862 1.768.407 6.212l.77.77L5.61 2.527V5.64h1.067V.701H1.815v1.067h3.047Z"
+            ></path>
+          </svg>
+        </div>
+
+        <TableView :cols="tableCols1" />
+      </div>
+
+      <div v-if="btnIndex === 1">
+        <TableView :cols="tableCols2" />
+      </div>
+
+      <div v-if="btnIndex === 2">
+        <TableView :cols="tableCols3" />
+      </div>
+
+      <div v-if="btnIndex === 3">
+        <TableView :cols="tableCols4" />
+      </div>
     </div>
     <div class="right-area">
       <FuturesRight />
@@ -373,6 +467,8 @@ import HeaderView from "../components/HeaderView.vue";
 import FuturesRight from "./FuturesRight.vue";
 import { getAssetsFile } from "../utils/index";
 import btnsConfig from "../config/home";
+import TableView from "../components/TableView.vue";
+import FuturesChart from "./FuturesChart.vue";
 const cur = ref(10);
 const hideDrop = ref(true);
 const route = useRoute();
@@ -381,10 +477,110 @@ const selectThis = (index) => {
   cur.value = index;
 };
 const btnIndex = ref(0);
+const tableCols1 = [
+  {
+    t: "Market",
+    s: false,
+  },
+  {
+    t: "Side",
+    s: false,
+  },
+  {
+    t: "Size",
+    s: false,
+  },
+  {
+    t: "Leverage",
+    s: false,
+  },
+  {
+    t: "Unrealized P&L",
+    s: false,
+  },
+  {
+    t: "Avg. Entry Price",
+    s: false,
+  },
+  {
+    t: "Liq. Price",
+    s: false,
+  },
+];
+const tableCols2 = [
+  {
+    t: "Market/Type",
+    s: true,
+  },
+  {
+    t: "Side",
+    s: true,
+  },
+  {
+    t: "Size",
+    s: true,
+  },
+  {
+    t: "Status",
+    s: true,
+  },
+  {
+    t: "Actions",
+    s: false,
+  },
+];
+const tableCols3 = [
+  {
+    t: "Date",
+    s: true,
+  },
+  {
+    t: "Side",
+    s: true,
+  },
+  {
+    t: "Price",
+    s: true,
+  },
+  {
+    t: "Trade Size",
+    s: true,
+  },
+  {
+    t: "Fees",
+    s: true,
+  },
+  {
+    t: "Order Type",
+    s: false,
+  },
+];
+const tableCols4 = [
+  {
+    t: "Action",
+    s: false,
+  },
+  {
+    t: "Amount",
+    s: true,
+  },
+  {
+    t: "Date",
+    s: false,
+  },
+  {
+    t: "transaction",
+    s: false,
+  },
+];
 onMounted(() => {
   document.addEventListener("click", () => {
     hideDrop.value = true;
   });
+  const q = router.currentRoute.value.query;
+  if (q["b"]) {
+    cur.value = btnsConfig.findIndex((item) => item.t1 === q["b"]);
+  }
 });
 </script>
 <style scoped>
@@ -448,10 +644,32 @@ onMounted(() => {
   font-size: 13px;
   color: rgb(239, 104, 104);
 }
+.btns-area {
+  margin: 16px 0;
+}
 .btns-area .e-button {
   margin-left: 10px;
 }
 .btns-area .e-button:first {
   margin-left: 0;
+}
+.three-wrap ul li {
+  line-height: 16px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  color: rgb(169, 168, 166);
+  display: flex;
+  justify-content: space-between;
+}
+.three-wrap ul li span {
+  color: rgb(236, 232, 227);
+  font-family: AkkuratMonoLLWeb-Regular;
+}
+.three-wrap .divide {
+  width: 1px;
+  height: 68px;
+  background-color: rgb(43, 42, 42);
+  margin: 0px 15px;
+  margin-top: -8px;
 }
 </style>

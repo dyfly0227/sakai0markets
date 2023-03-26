@@ -2,11 +2,14 @@
   <div>
     <div class="header flex-middle">
       <div class="flex-middle">
-        <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
+        <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
         <span
           style="font-size: 16px; color: rgb(153, 153, 153); margin-left: 10px"
           >Alpha</span
-        >
+        > -->
+        <RouterLink to="/">
+          <img src="../assets/logo.png" alt="" height="40" />
+        </RouterLink>
       </div>
       <div class="flex-1 flex-center">
         <div class="top-btn">
@@ -90,7 +93,7 @@
           </svg>
         </div>
       </div>
-      <div class="top-trade">Start Trading</div>
+      <div class="top-trade" @click="jumpToFutures">Start Trading</div>
     </div>
     <div class="body flex-middle flex-col">
       <div
@@ -119,7 +122,7 @@
         Trade up to 25x leverage on the world's first decentralized perpetual
         exchange with infinite liquidity
       </div>
-      <div class="trade-now">Trade now</div>
+      <div class="trade-now" @click="jumpToFutures">Trade now</div>
       <div
         style="
           font-family: AkkuratLLWeb-Bold;
@@ -150,7 +153,12 @@
       </div>
     </div>
     <div class="btns">
-      <div class="btn-item" v-for="btn of btnsConfig" :key="btn.t1">
+      <div
+        class="btn-item"
+        v-for="btn of btnsConfig"
+        :key="btn.t1"
+        @click="jump(btn.t1)"
+      >
         <div class="flex-middle">
           <img :src="getAssetsFile(btn.img)" alt="" width="40" height="40" />
           <div style="margin-left: 10px">
@@ -171,6 +179,12 @@ import { getAssetsFile } from "../utils/index";
 import btnsConfig from "../config/home";
 const route = useRoute();
 const router = useRouter();
+const jump = (b) => {
+  router.push("/futures?b=" + b);
+};
+const jumpToFutures = () => {
+  router.push("/futures?b=ETH");
+};
 onMounted(() => {});
 </script>
 <style scoped>

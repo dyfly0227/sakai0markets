@@ -1,5 +1,7 @@
 <template>
-  <div class="connect-btn">Connect Wallet</div>
+  <div class="connect-btn" id="connectwallet2" @click="connect">
+    Connect Wallet
+  </div>
   <div class="right-two border">
     <ul>
       <li>Available Margin: <span>$0.00</span></li>
@@ -298,7 +300,21 @@ const rotate = ref(false);
 const jumpToStaking = () => {
   router.push("/dashboard/staking");
 };
-onMounted(() => {});
+
+const connect = () => {
+  let account;
+  ethereum.request({ method: "eth_requestAccounts" }).then((accounts) => {
+    account = accounts[0];
+    let showaddress = account.substring(0, 5) + "..." + account.substring(38);
+    document.getElementById("connectwallet").innerText = showaddress;
+    if (window.connetWalletStaking) {
+      window.connetWalletStaking.innerText = "Start at 5th, April.";
+    }
+  });
+};
+onMounted(() => {
+  window.connetWalletStaking = document.querySelector("#connectwallet2");
+});
 </script>
 <style scoped>
 .connect-btn {

@@ -1,11 +1,15 @@
 <template>
   <div class="flex-middle header">
     <div class="flex-middle">
-      <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
+      <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
       <span
         style="font-size: 18px; color: rgb(153, 153, 153); margin-left: 10px"
         >Alpha</span
-      >
+      > -->
+
+      <RouterLink to="/">
+        <img src="../assets/logo.png" alt="" height="40" />
+      </RouterLink>
     </div>
 
     <div class="flex-1 flex" style="margin-left: 35px">
@@ -19,7 +23,7 @@
       </div>
     </div>
 
-    <div class="connect">
+    <div class="connect" id="connectwallet" @click="connect">
       <span></span>
       Connect Wallet
     </div>
@@ -51,6 +55,17 @@ const menus = [
 ];
 const isActive = (keyword) => {
   return router.currentRoute.value.path.includes(keyword);
+};
+const connect = () => {
+  let account;
+  ethereum.request({ method: "eth_requestAccounts" }).then((accounts) => {
+    account = accounts[0];
+    let showaddress = account.substring(0, 5) + "..." + account.substring(38);
+    document.getElementById("connectwallet").innerText = showaddress;
+    if (window.connetWalletStaking) {
+      window.connetWalletStaking.innerText = "Start at 5th, April.";
+    }
+  });
 };
 </script>
 <style scoped>
