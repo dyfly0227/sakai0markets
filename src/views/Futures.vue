@@ -1,7 +1,7 @@
 <template>
   <HeaderView />
-  <div class="flex-start">
-    <div class="left-area">
+  <div class="flex-start flex-wrap">
+    <div class="left-area" style="margin: 0 10px">
       <div class="drop-btn flex-middle border" @click.stop="hideDrop = false">
         <img
           :src="getAssetsFile(btnsConfig[cur].img)"
@@ -66,6 +66,7 @@
                   color: rgb(236, 232, 227);
                   margin-left: 5px;
                   width: 100px;
+                  flex: 1;
                 "
               >
                 {{ btn.t1 }}-PERP
@@ -76,6 +77,7 @@
                   font-size: 14px;
                   color: rgb(127, 212, 130);
                   width: 90px;
+                  flex: 1;
                 "
               >
                 {{ btn.p }}
@@ -130,7 +132,7 @@
         </div>
       </div>
 
-      <div class="border">
+      <div class="border" style="margin-bottom: 10px">
         <div
           style="
             font-size: 13px;
@@ -157,11 +159,11 @@
         <div style="height: 600px"></div>
       </div>
     </div>
-    <div class="flex-1" style="margin: 0 20px">
+    <div class="flex-1" style="margin: 0 10px">
       <div class="border">
         <ul
-          class="flex-middle flex-space"
-          style="height: 55px; padding: 0 15px"
+          class="flex-middle flex-space mobile-wrap"
+          style="min-height: 55px; padding: 0 15px"
         >
           <li>
             <div class="c-gray">Market Price</div>
@@ -194,8 +196,8 @@
         <FuturesChart :b="btnsConfig[cur].t1" />
       </div>
 
-      <div class="flex-space btns-area">
-        <div class="flex-middle">
+      <div class="flex-space btns-area flex-wrap">
+        <div class="flex-middle flex-wrap">
           <div
             class="e-button trans"
             :class="{ active: btnIndex === 0 }"
@@ -367,7 +369,7 @@
 
       <div v-if="btnIndex === 0">
         <div
-          class="border flex-middle three-wrap"
+          class="border flex-middle three-wrap mobile-wrap child-100p"
           style="padding: 15px 15px 5px"
         >
           <div class="flex-1">
@@ -422,7 +424,10 @@
           </div>
         </div>
 
-        <div class="e-button" style="margin: 15px 0">
+        <div
+          class="e-button"
+          style="margin: 15px 0; width: 100%; padding: 0; text-align: center"
+        >
           Futures will be live on April 1,2023.
           <svg
             width="7"
@@ -454,7 +459,7 @@
         <TableView :cols="tableCols4" />
       </div>
     </div>
-    <div class="right-area">
+    <div class="right-area" style="margin: 0 10px">
       <FuturesRight />
     </div>
   </div>
@@ -584,11 +589,14 @@ onMounted(() => {
 });
 </script>
 <style scoped>
+.left-area {
+  min-width: 280px;
+}
 .right-area {
-  width: 300px;
+  min-width: 300px;
 }
 .drop-btn {
-  width: 280px;
+  width: 100%;
   box-sizing: border-box;
   padding-left: 8px;
   padding-right: 15px;
@@ -600,7 +608,7 @@ onMounted(() => {
   position: absolute;
   left: 0;
   top: 10px;
-  width: 280px;
+  width: 100%;
   overflow-x: hidden;
   height: 500px;
   overflow-y: auto;
@@ -645,10 +653,12 @@ onMounted(() => {
   color: rgb(239, 104, 104);
 }
 .btns-area {
-  margin: 16px 0;
+  margin-bottom: 16px;
+  margin-top: 6px;
 }
 .btns-area .e-button {
   margin-left: 10px;
+  margin-top: 10px;
 }
 .btns-area .e-button:first {
   margin-left: 0;
@@ -671,5 +681,14 @@ onMounted(() => {
   background-color: rgb(43, 42, 42);
   margin: 0px 15px;
   margin-top: -8px;
+}
+
+@media (max-width: 600px) {
+  .left-area {
+    flex: 1;
+  }
+  .right-area {
+    flex: 1;
+  }
 }
 </style>

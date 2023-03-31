@@ -1,7 +1,7 @@
 <template>
   <div class="border">
     <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.12)">
-      <ul class="flex-middle flex-around">
+      <ul class="flex-middle flex-around mobile-wrap">
         <li v-for="col of cols" :key="col.t" class="li-item">
           {{ col.t }}
           <span class="flex-col" v-if="col.s" style="margin-left: 5px"

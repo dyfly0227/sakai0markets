@@ -37,7 +37,7 @@
   </div>
   <div class="tables-container">
     <div
-      class="flex-middle"
+      class="flex-middle mobile-wrap"
       style="
         padding-left: 18px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -134,7 +134,9 @@ onMounted(() => {});
   border-radius: 10px;
 }
 .table-col {
-  line-height: 40px;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
   color: rgb(169, 168, 166);
   font-family: AkkuratLLWeb-Regular;
   flex: 1;

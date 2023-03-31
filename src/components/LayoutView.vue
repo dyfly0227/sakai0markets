@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <div class="flex-start" style="margin-top: 10px">
+    <div class="flex-start flex-wrap" style="margin-top: 10px">
       <LeftMenu></LeftMenu>
       <div class="flex-1" style="margin-left: 10px; max-width: 1300px">
         <RouterView />

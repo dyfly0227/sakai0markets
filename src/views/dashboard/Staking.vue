@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="flex-middle" style="margin-top: 100px">
+  <div class="flex-middle mobile-wrap" style="margin-top: 100px">
     <div class="e-button" :class="{ active: cur === 0 }" @click="cur = 0">
       Staking
     </div>
@@ -50,7 +50,7 @@
       Redemption
     </div>
   </div>
-  <div class="switch-wrap">
+  <div class="switch-wrap mobile-grid-wrap">
     <div class="switch-item" v-if="cur === 0">
       <div class="color-gray">Claimable Rewards</div>
       <div class="color-green" style="margin-bottom: 20px">0.0000</div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-middle header">
+  <div class="flex-middle header mobile-wrap">
     <div class="flex-middle">
       <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
       <span
@@ -12,7 +12,7 @@
       </RouterLink>
     </div>
 
-    <div class="flex-1 flex" style="margin-left: 35px">
+    <div class="flex-1 flex mobile-wrap" style="margin-left: 35px">
       <div
         class="d-button"
         v-for="menu of menus"
@@ -74,7 +74,7 @@ const connect = () => {
 }
 .header {
   display: flex;
-  height: 41px;
+  min-height: 41px;
   padding-bottom: 20px;
 }
 .connect {

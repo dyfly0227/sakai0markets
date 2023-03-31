@@ -23,7 +23,7 @@
     </div>
     <div class="border" style="margin-top: 10px">
       <div class="t-1">Top Traders</div>
-      <div class="flex-middle flex-space t-2">
+      <div class="flex-middle flex-space t-2 mobile-wrap">
         <div class="items" v-for="col of cols" :key="col">{{ col }}</div>
       </div>
     </div>
@@ -91,7 +91,7 @@ onMounted(() => {});
   text-transform: capitalize;
   color: rgb(169, 168, 166);
   font-size: 13px;
-  height: 40px;
+  min-height: 40px;
   line-height: 40px;
 }
 </style>

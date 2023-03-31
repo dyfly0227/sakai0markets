@@ -82,6 +82,9 @@ body {
   flex-direction: column;
   display: flex;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .d-button {
   font-size: 15px;
   line-height: 15px;
@@ -165,4 +168,16 @@ body {
 .border {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .mobile-wrap {
+    flex-wrap: wrap;
+  }
+  /* .mobile-wrap > * {
+    margin: 10px 0 0 10px;
+  } */
+  .mobile-grid-wrap { 
+    grid-template-columns: 1fr!important;
+  }
 }

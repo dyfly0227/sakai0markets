@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="header flex-middle">
+  <div style="max-width: 100vw; overflow: hidden">
+    <div class="header flex-middle mobile-wrap">
       <div class="flex-middle">
         <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
         <span

@@ -1,87 +1,89 @@
 <template>
   <div class="market-container">
     <div class="e-button">Futures Markets</div>
-    <div class="tables-container">
-      <div class="table-row table-header">
-        <div
-          class="col"
-          v-for="(col, index) of cols"
-          :key="'col' + index"
-          :class="'col-' + (index + 1)"
-        >
-          {{ col.title }}
-          <span v-if="col.sort"
-            ><svg
-              width="5"
-              height="5"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              class="sc-352a9464-8 dMixWA"
-            >
-              <path
-                d="M13.5 12.5 8 7l-5.5 5.5L1 11l7-7 7 7-1.5 1.5Z"
-                fill="currentColor"
-              ></path></svg
-            ><svg
-              width="5"
-              height="5"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              class="sc-352a9464-7 djtXPH"
-            >
-              <path
-                d="M2.5 4 8 9.5 13.5 4 15 5.5l-7 7-7-7L2.5 4Z"
-                fill="currentColor"
-              ></path></svg
-          ></span>
+    <div :style="{ width: tw }" style="overflow-x: auto">
+      <div class="tables-container" style="min-width: 820px">
+        <div class="table-row table-header">
+          <div
+            class="col"
+            v-for="(col, index) of cols"
+            :key="'col' + index"
+            :class="'col-' + (index + 1)"
+          >
+            {{ col.title }}
+            <span v-if="col.sort"
+              ><svg
+                width="5"
+                height="5"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                class="sc-352a9464-8 dMixWA"
+              >
+                <path
+                  d="M13.5 12.5 8 7l-5.5 5.5L1 11l7-7 7 7-1.5 1.5Z"
+                  fill="currentColor"
+                ></path></svg
+              ><svg
+                width="5"
+                height="5"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                class="sc-352a9464-7 djtXPH"
+              >
+                <path
+                  d="M2.5 4 8 9.5 13.5 4 15 5.5l-7 7-7-7L2.5 4Z"
+                  fill="currentColor"
+                ></path></svg
+            ></span>
+          </div>
         </div>
-      </div>
-      <div
-        class="table-row table-body"
-        v-for="(config, index) of marketConfig"
-        :key="config.t1"
-      >
-        <div class="col col-1">
-          <div class="flex-middle">
-            <img
-              :src="getAssetsFile(config.img)"
-              alt=""
-              width="30"
-              height="30"
-            />
-            <div style="margin-left: 10px">
-              <div class="btn-t1">{{ config.t1 }}</div>
-              <div class="btn-t2">{{ config.t2 }}</div>
+        <div
+          class="table-row table-body"
+          v-for="(config, index) of marketConfig"
+          :key="config.t1"
+        >
+          <div class="col col-1">
+            <div class="flex-middle">
+              <img
+                :src="getAssetsFile(config.img)"
+                alt=""
+                width="30"
+                height="30"
+              />
+              <div style="margin-left: 10px">
+                <div class="btn-t1">{{ config.t1 }}</div>
+                <div class="btn-t2">{{ config.t2 }}</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col col-2">
-          <span class="col-price text-green" v-if="randomColor(index)">{{
-            config.p
-          }}</span>
-          <span class="col-price text-red" v-else>{{ config.p }}</span>
-        </div>
-        <div class="col col-3">
-          <span style="color: rgb(236, 232, 227)">-</span>
-        </div>
-        <div class="col col-4">
-          <span class="text-green" v-if="randomColor(index)">{{
-            config.r
-          }}</span>
-          <span class="text-red" v-else>{{ config.r }}</span>
-        </div>
-        <div class="col col-5">
-          <div>
-            <div class="text-green">{{ config.p1 }}</div>
-            <div class="text-red">{{ config.p2 }}</div>
+          <div class="col col-2">
+            <span class="col-price text-green" v-if="randomColor(index)">{{
+              config.p
+            }}</span>
+            <span class="col-price text-red" v-else>{{ config.p }}</span>
           </div>
-        </div>
-        <div class="col col-6">
-          <span style="color: rgb(236, 232, 227)">$0.00</span>
+          <div class="col col-3">
+            <span style="color: rgb(236, 232, 227)">-</span>
+          </div>
+          <div class="col col-4">
+            <span class="text-green" v-if="randomColor(index)">{{
+              config.r
+            }}</span>
+            <span class="text-red" v-else>{{ config.r }}</span>
+          </div>
+          <div class="col col-5">
+            <div>
+              <div class="text-green">{{ config.p1 }}</div>
+              <div class="text-red">{{ config.p2 }}</div>
+            </div>
+          </div>
+          <div class="col col-6">
+            <span style="color: rgb(236, 232, 227)">$0.00</span>
+          </div>
         </div>
       </div>
     </div>
@@ -124,7 +126,13 @@ const cols = [
     sort: true,
   },
 ];
-onMounted(() => {});
+const tw = ref("auto");
+onMounted(() => {
+  const sw = window.screen.width;
+  if (sw < 600) {
+    tw.value = sw - 50 + "px";
+  }
+});
 </script>
 <style scoped>
 .e-button {
