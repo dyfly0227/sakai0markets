@@ -20,7 +20,7 @@ const init = (val) => {
     symbol: `BINANCE:${val}USDT`,
     interval: "D",
     timezone: "Etc/UTC",
-    theme: "light",
+    theme: "dark",
     style: "1",
     locale: "en",
     toolbar_bg: "#f1f3f6",

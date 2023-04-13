@@ -48,7 +48,8 @@ h4 {
 
 body {
   padding: 25px;
-  background-color: rgb(17, 17, 19);
+  /* background-color: rgb(17, 17, 19); */
+  background-color: #181c27;
   box-sizing: border-box;
   min-height: 100vh;
 }
@@ -180,4 +181,33 @@ body {
   .mobile-grid-wrap { 
     grid-template-columns: 1fr!important;
   }
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f6f6f6;
+	border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #cdcdcd;
+	border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #747474;
+}
+
+::-webkit-scrollbar-corner {
+	background: #f6f6f6;
 }

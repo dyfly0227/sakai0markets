@@ -1,7 +1,7 @@
 <template>
-  <div class="connect-btn" id="connectwallet2" @click="connect">
+  <!-- <div class="connect-btn" id="connectwallet2" @click="connect">
     Connect Wallet
-  </div>
+  </div> -->
   <div class="right-two border">
     <ul>
       <li>Available Margin: <span>$0.00</span></li>

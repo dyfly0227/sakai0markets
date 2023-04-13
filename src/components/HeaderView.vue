@@ -37,7 +37,7 @@ const route = useRoute();
 const router = useRouter();
 const menus = [
   {
-    title: "Dashboard",
+    title: "Markets",
     url: "/dashboard/markets",
   },
   {
@@ -49,8 +49,8 @@ const menus = [
     url: "",
   },
   {
-    title: "Leaderboard",
-    url: "/leaderboard",
+    title: "History",
+    url: "/history",
   },
 ];
 const isActive = (keyword) => {

@@ -1,7 +1,7 @@
 <template>
   <div class="market-container">
     <div class="e-button">Futures Markets</div>
-    <div :style="{ width: tw }" style="overflow-x: auto">
+    <div :style="{ width: tw }" style="overflow-x: auto" class="hide-scroll">
       <div class="tables-container" style="min-width: 820px">
         <div class="table-row table-header">
           <div

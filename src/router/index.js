@@ -27,7 +27,12 @@ const router = createRouter({
     {
       path: "/futures",
       name: "futures",
-      component: () => import("../views/Futures.vue"),
+      component: () => import("../views/FuturesNew.vue"),
+    },
+    {
+      path: "/history",
+      name: "history",
+      component: () => import("../views/History.vue"),
     },
     {
       path: "/dashboard",
@@ -38,11 +43,11 @@ const router = createRouter({
           name: "markets",
           component: () => import("../views/dashboard/MarketsView.vue"),
         },
-        {
-          path: "history",
-          name: "history",
-          component: () => import("../views/dashboard/HistoryView.vue"),
-        },
+        // {
+        //   path: "history",
+        //   name: "history",
+        //   component: () => import("../views/dashboard/HistoryView.vue"),
+        // },
         {
           path: "overview",
           name: "overview",
