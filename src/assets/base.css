@@ -172,6 +172,9 @@ body {
 }
 
 @media (max-width: 600px) {
+  body {
+    padding: 10px 0;
+  }
   .mobile-wrap {
     flex-wrap: wrap;
   }
@@ -210,4 +213,11 @@ body {
 
 ::-webkit-scrollbar-corner {
 	background: #f6f6f6;
+}
+
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
 }

@@ -1,4 +1,5 @@
 <template>
+  <HeaderView />
   <div class="flex-middle">
     <div class="e-button" style="margin-right: 14px">Futures History</div>
     <div class="e-button bak-trans">Spot History</div>
@@ -31,6 +32,7 @@
 </template>
 
 <script setup>
+import HeaderView from "../../components/HeaderView.vue";
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();

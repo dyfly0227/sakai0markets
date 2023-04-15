@@ -1,20 +1,28 @@
 <template>
   <div class="flex-middle header mobile-wrap">
-    <div class="flex-middle">
-      <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
+    <RouterLink to="/">
+      <div class="flex-middle">
+        <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
       <span
         style="font-size: 18px; color: rgb(153, 153, 153); margin-left: 10px"
         >Alpha</span
       > -->
 
-      <RouterLink to="/">
         <img src="../assets/logo.png" alt="" height="40" />
-      </RouterLink>
-    </div>
+        <span
+          style="
+            font-size: 20px;
+            color: #fff;
+            font-family: AkkuratMonoLLWeb-Regular;
+          "
+          >TopTrade</span
+        >
+      </div>
+    </RouterLink>
 
     <div class="flex-1 flex mobile-wrap" style="margin-left: 35px">
       <div
-        class="d-button"
+        class="d-button hover-yellow"
         v-for="menu of menus"
         :key="menu.title"
         :class="{ active: isActive(menu.title.toLocaleLowerCase()) }"
@@ -44,10 +52,10 @@ const menus = [
     title: "Futures",
     url: "/futures",
   },
-  {
-    title: "Exchange",
-    url: "",
-  },
+  // {
+  //   title: "Exchange",
+  //   url: "",
+  // },
   {
     title: "History",
     url: "/history",
@@ -98,6 +106,10 @@ const connect = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.hover-yellow:hover {
+  color: rgb(252, 213, 53);
+  background: none;
 }
 .connect:hover {
   background: rgb(43, 42, 42);

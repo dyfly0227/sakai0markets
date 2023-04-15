@@ -266,7 +266,7 @@
       </div>
       <div class="flex-middle flex-space">
         <div style="color: rgb(169, 168, 166); font-size: 13px">
-          Stake <span style="color: rgb(236, 232, 227)">$SAKAI</span> to start
+          Stake <span style="color: rgb(236, 232, 227)">$TTT</span> to start
           earning rewards
         </div>
         <span>

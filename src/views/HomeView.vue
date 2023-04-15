@@ -1,16 +1,25 @@
 <template>
   <div style="max-width: 100vw; overflow: hidden">
     <div class="header flex-middle mobile-wrap">
-      <div class="flex-middle">
-        <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
-        <span
-          style="font-size: 16px; color: rgb(153, 153, 153); margin-left: 10px"
-          >Alpha</span
-        > -->
-        <RouterLink to="/">
+      <RouterLink to="/">
+        <div class="flex-middle">
+          <!-- <img src="../assets/logo_icon.png" alt="alpha" width="20" height="20" />
+      <span
+        style="font-size: 18px; color: rgb(153, 153, 153); margin-left: 10px"
+        >Alpha</span
+      > -->
+
           <img src="../assets/logo.png" alt="" height="40" />
-        </RouterLink>
-      </div>
+          <span
+            style="
+              font-size: 20px;
+              color: #fff;
+              font-family: AkkuratMonoLLWeb-Regular;
+            "
+            >TopTrade</span
+          >
+        </div>
+      </RouterLink>
       <div class="flex-1 flex-center">
         <div class="top-btn">
           <RouterLink to="/dashboard/markets">Markets</RouterLink>

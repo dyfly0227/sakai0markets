@@ -34,7 +34,6 @@ onMounted(() => {});
   overflow-x: auto;
 }
 .table-container ul {
-  margin-top: 10px;
   display: flex;
   flex-wrap: nowrap;
   border-bottom: 1px solid rgba(132, 142, 156, 0.5);

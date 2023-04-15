@@ -11,13 +11,16 @@
           <div class="flex-middle">
             <div>
               <div class="drop-btn flex-middle" @click.stop="hideDrop = false">
-                <img
+                <!-- <img
                   :src="getAssetsFile(btnsConfig[cur].img)"
                   alt=""
                   width="31"
                   height="31"
-                />
-                <div class="flex-1" style="margin-left: 10px">
+                /> -->
+                <div
+                  class="flex-1"
+                  style="margin-left: 10px; margin-right: 10px"
+                >
                   <div
                     style="
                       font-family: AkkuratLLWeb-Regular;
@@ -54,13 +57,23 @@
                 </div>
               </div>
               <div style="position: relative; z-index: 1000">
-                <div class="drop-list border" v-if="!hideDrop">
+                <div class="drop-list" v-if="!hideDrop" @click.stop>
+                  <input type="search" placeholder="search" />
+                  <div class="flex condition">
+                    <div
+                      v-for="(c, index) of searchCondition"
+                      :class="{ active: cIndex === index }"
+                      @click="cIndex = index"
+                    >
+                      {{ c }}
+                    </div>
+                  </div>
                   <ul>
                     <li style="color: rgb(132, 142, 156); font-size: 10px">
                       <div class="col1">Symbols</div>
                       <div class="col2">Last Price</div>
                       <div class="col3">24%</div>
-                      <div class="col4">Vol</div>
+                      <!-- <div class="col4">Vol</div> -->
                     </li>
                     <li
                       v-for="(btn, index) of btnsConfig"
@@ -68,20 +81,11 @@
                       @click="selectThis(index)"
                     >
                       <div class="flex-middle col1">
-                        <img
-                          :src="getAssetsFile(btn.img)"
-                          alt=""
-                          width="20"
-                          height="20"
-                        />
                         <div
                           style="
                             font-family: AkkuratLLWeb-Regular;
                             font-size: 12px;
                             color: rgb(236, 232, 227);
-                            margin-left: 5px;
-                            width: 100px;
-                            flex: 1;
                           "
                         >
                           {{ btn.t1 }}USDT
@@ -93,27 +97,25 @@
                       </div>
                       <div
                         class="col2"
+                        :class="Math.random() > 0.5 ? 'green' : 'red'"
                         style="
                           font-family: AkkuratLLWeb-Regular;
-                          font-size: 12px;
-                          color: rgb(127, 212, 130);
-                          width: 90px;
-                          flex: 1;
+                          font-size: 10px;
                         "
                       >
                         {{ btn.p }}
                       </div>
                       <div
                         class="col3"
+                        :class="Math.random() > 0.5 ? 'green' : 'red'"
                         style="
                           font-family: AkkuratLLWeb-Regular;
-                          font-size: 12px;
-                          color: rgb(127, 212, 130);
+                          font-size: 10px;
                         "
                       >
                         0.00%
                       </div>
-                      <div
+                      <!-- <div
                         class="col4"
                         style="
                           font-family: AkkuratLLWeb-Regular;
@@ -122,7 +124,7 @@
                         "
                       >
                         {{ btn.v }}
-                      </div>
+                      </div> -->
                     </li>
                   </ul>
                 </div>
@@ -168,7 +170,7 @@
             </div>
           </div>
           <!-- k线图 -->
-          <div style="height: 540px">
+          <div style="height: 640px">
             <FuturesChart :b="btnsConfig[cur].t1" />
           </div>
         </div>
@@ -256,7 +258,7 @@
       <div class="left-bottom"></div>
     </div>
     <div class="right-area">
-      <FuturesRight></FuturesRight>
+      <FuturesRightNew></FuturesRightNew>
     </div>
   </div>
   <div class="switch-tabs">
@@ -273,6 +275,21 @@
       </ul>
     </div>
     <div class="tabs-content">
+      <div style="padding: 10px 20px">
+        <div
+          style="
+            font-size: 12px;
+            color: rgb(234, 236, 239);
+            background-color: rgb(71, 77, 87);
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+          "
+        >
+          Futures will be live on April 29, 2023.
+        </div>
+      </div>
       <NewTable :cols="tableCols[tabIndex]" :content="tabContents[tabIndex]" />
     </div>
     <div class="margin-ratio">
@@ -334,7 +351,7 @@ import { getAssetsFile } from "../utils/index";
 import HeaderView from "../components/HeaderView.vue";
 import btnsConfig from "../config/home";
 import FuturesChart from "./FuturesChart.vue";
-import FuturesRight from "./FuturesRight.vue";
+import FuturesRightNew from "./FuturesRightNew.vue";
 import NewTable from "../components/NewTable.vue";
 import { tableCols, tabContents } from "../config/tableCols";
 const cur = ref(2);
@@ -344,6 +361,18 @@ const hideDrop = ref(true);
 const selectThis = (index) => {
   cur.value = index;
 };
+
+const searchCondition = [
+  "All",
+  "AI",
+  "BUSD",
+  "CEX",
+  "DAO",
+  "DeFi",
+  "DEX",
+  "Dragon",
+];
+const cIndex = ref(0);
 
 // 底部表格
 const tabs = [
@@ -401,9 +430,9 @@ onUnmounted(() => {
 </script>
 <style scoped>
 .drop-btn {
-  width: 180px;
+  /* width: 120px; */
   box-sizing: border-box;
-  padding-left: 8px;
+  /* padding-left: 8px; */
   padding-right: 15px;
   cursor: pointer;
   height: 53px;
@@ -417,19 +446,48 @@ onUnmounted(() => {
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
+  background-color: rgb(18, 22, 28);
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 .drop-list::-webkit-scrollbar {
   display: none;
+}
+.drop-list input {
+  border: none;
+  outline: 0;
+  background-color: rgb(43, 49, 57);
+  display: block;
+  width: 100%;
+  height: 24px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  color: rgb(236, 232, 227);
+  font-size: 10px;
+}
+.drop-list .condition {
+  margin-bottom: 10px;
+}
+.drop-list .condition > div {
+  font-size: 10px;
+  color: rgb(132, 142, 156);
+  cursor: pointer;
+  margin: 0 4px;
+}
+.drop-list .condition > div.active,
+.drop-list .condition > div:hover {
+  color: rgb(240, 185, 11);
 }
 .drop-list ul li {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding: 0 6px;
-  height: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  height: 24px;
   cursor: pointer;
-  background: rgb(37, 37, 37);
+  justify-content: space-between;
+  padding: 0 5px;
 }
 .drop-list ul li:hover {
   background: rgb(43, 42, 42);
@@ -438,16 +496,17 @@ onUnmounted(() => {
   border: none;
 }
 .drop-list ul li:first-child:hover {
-  background: rgb(37, 37, 37);
+  background: rgb(18, 22, 28);
 }
 .col1 {
-  width: 160px;
+  width: 170px;
 }
 .col2 {
-  width: 90px;
+  width: 70px;
 }
 .col3 {
   width: 80px;
+  text-align: right;
 }
 .col4 {
   width: 70px;
@@ -516,7 +575,8 @@ onUnmounted(() => {
   padding: 15px;
   background-color: #1e2329;
   box-sizing: border-box;
-  height: 624px;
+  height: 692px;
+  width: 280px;
 }
 
 .tabs-title ul li {
@@ -534,7 +594,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  padding-right: 316px;
+  padding-right: 280px;
   border: 1px solid rgba(132, 142, 156, 0.5);
   transform: translateY(-1px);
 }
@@ -542,7 +602,7 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   right: 0;
-  width: 316px;
+  width: 280px;
   box-sizing: border-box;
   padding: 15px;
   min-height: 500px;
@@ -591,6 +651,15 @@ onUnmounted(() => {
   }
   .switch-tabs {
     padding-right: 0;
+  }
+  .chart-area {
+    width: 100vw;
+  }
+  .right-area {
+    width: 100vw;
+  }
+  .drop-list {
+    width: 100vw;
   }
   .margin-ratio {
     width: 100%;

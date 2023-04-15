@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import("../views/Leaderboard.vue"),
     },
     {
+      path: "/futuresold",
+      name: "futuresOld",
+      component: () => import("../views/Futures.vue"),
+    },
+    {
       path: "/futures",
       name: "futures",
       component: () => import("../views/FuturesNew.vue"),
