@@ -44,6 +44,7 @@
         <div
           class="table-row table-body"
           v-for="(config, index) of marketConfig"
+          @click="toFutures(config.t1)"
           :key="config.t1"
         >
           <div class="col col-1">
@@ -100,6 +101,10 @@ const router = useRouter();
 const randomColor = (index) => {
   return index + Math.random() > index + 0.5;
 };
+const toFutures = (e) => {
+  router.push("/futures?b=" + e.replace("-PERP", ""));
+};
+
 const cols = [
   {
     title: "Market",
