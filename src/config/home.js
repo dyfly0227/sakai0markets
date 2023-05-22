@@ -27,6 +27,13 @@ export default [
     p: "$0.08",
     v: "237,723,689",
   },
+  {
+    img: "mexc.svg",
+    t1: "OGGY",
+    t2: "oggy",
+    p: "$0.00000002916",
+    v: "643,689",
+  },
   // {
   //   img: "sLINK.8f48efbd.png",
   //   t1: "LINK",

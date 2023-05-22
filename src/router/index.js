@@ -13,7 +13,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       // component: HomeView,
-      redirect: "/futures",
+      redirect: "/futures/OGGYUSDT",
     },
     {
       path: "/leaderboard",
@@ -31,7 +31,7 @@ const router = createRouter({
       component: () => import("../views/Futures.vue"),
     },
     {
-      path: "/futures",
+      path: "/futures/:coin",
       name: "futures",
       component: () => import("../views/FuturesNew.vue"),
     },

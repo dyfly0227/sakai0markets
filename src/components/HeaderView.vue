@@ -50,7 +50,7 @@ const menus = [
   },
   {
     title: "Futures",
-    url: "/futures",
+    url: "/futures/OGGY_USDT",
   },
   // {
   //   title: "Exchange",

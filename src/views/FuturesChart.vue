@@ -17,7 +17,7 @@ const init = (val) => {
     width: "100%",
     height: "100%",
     autosize: true,
-    symbol: `BINANCE:${val}USDT`,
+    symbol: val === "OGGY" ? `MEXC:${val}USDT` : `BINANCE:${val}USDT`,
     interval: "D",
     timezone: "Etc/UTC",
     theme: "dark",

@@ -8,7 +8,7 @@
           style="border: 1px solid rgba(132, 142, 156, 0.5)"
         >
           <!-- 表格上方 -->
-          <div class="flex-middle">
+          <div class="flex-middle flex-wrap">
             <div>
               <div class="drop-btn flex-middle" @click.stop="hideDrop = false">
                 <!-- <img
@@ -78,7 +78,7 @@
                     <li
                       v-for="(btn, index) of btnsConfig"
                       :key="btn.t1"
-                      @click="selectThis(index)"
+                      @click="selectThis(btn)"
                     >
                       <div class="flex-middle col1">
                         <div
@@ -131,10 +131,13 @@
               </div>
             </div>
             <div
-              style="width: 140px; text-align: center; font-size: 24px"
-              :class="dynamicClass"
+              style="min-width: 140px; text-align: center; font-size: 24px"
+              class="white"
             >
-              {{ curPrice }}
+              <span v-if="tradeStore.coins[coin] && tradeStore.coins[coin].p"
+                >${{ getFullNum(tradeStore.coins[coin].p) }}</span
+              >
+              <span v-else>$0</span>
             </div>
             <div class="flex-middle flex-wrap">
               <div class="chart-item">
@@ -153,19 +156,48 @@
               </div>
               <div class="chart-item">
                 <div>24h Change</div>
-                <div style="color: rgb(14, 203, 129)">94.5 +0.32%</div>
+                <div style="color: rgb(14, 203, 129)">
+                  <span
+                    v-if="
+                      tradeStore.coins[coin] &&
+                      tradeStore.coins[coin].percentChangeVolume24h
+                    "
+                    >{{
+                      getFullNum(tradeStore.coins[coin].percentChangeVolume24h)
+                    }}%</span
+                  >
+                  <span v-else>-</span>
+                </div>
               </div>
               <div class="chart-item">
                 <div>24h High</div>
-                <div>30,480.0</div>
+                <div>
+                  <span
+                    v-if="tradeStore.coins[coin] && tradeStore.coins[coin].p"
+                    >${{ getFullNum(tradeStore.coins[coin].p) }}</span
+                  >
+                  <span v-else>$0</span>
+                </div>
               </div>
               <div class="chart-item">
                 <div>24h Low</div>
-                <div>29,620.0</div>
+                <div>
+                  <span
+                    v-if="tradeStore.coins[coin] && tradeStore.coins[coin].p"
+                    >${{ getFullNum(tradeStore.coins[coin].p) }}</span
+                  >
+                  <span v-else>$0</span>
+                </div>
               </div>
               <div class="chart-item">
-                <div>24h Volume(BTC)</div>
-                <div>526,270.515</div>
+                <div>24h Volume({{ coin.replace("_USDT", "") }})</div>
+                <div>
+                  <span
+                    v-if="tradeStore.coins[coin] && tradeStore.coins[coin].v"
+                    >{{ getFullNum(tradeStore.coins[coin].v) }}</span
+                  >
+                  <span v-else>-</span>
+                </div>
               </div>
             </div>
           </div>
@@ -175,50 +207,69 @@
           </div>
         </div>
         <div class="order-book">
-          <div style="color: rgb(234, 236, 239); font-size: 14px">
-            Order Book
-          </div>
-          <div class="order-cols" style="margin-top: 10px">
-            <ul style="color: rgb(132, 142, 156)">
-              <li>Price(USDT)</li>
-              <li>Size(BTC)</li>
-              <!-- <li>Sum(BTC)</li> -->
-            </ul>
-          </div>
-          <div class="order-cols" v-for="item of datas.slice(0, 8)">
+          <div style="height: 430px; position: relative">
             <div
+              class="loading-wrap"
+              v-if="
+                tradeStore.buys.length === 0 && tradeStore.sells.length === 0
+              "
+            >
+              <div class="loading"></div>
+            </div>
+
+            <div style="color: rgb(234, 236, 239); font-size: 14px">
+              Order Book
+            </div>
+            <div class="order-cols" style="margin-top: 10px">
+              <ul style="color: rgb(132, 142, 156)">
+                <li>Price(USDT)</li>
+                <li>Size({{ coin.replace("_USDT", "") }})</li>
+                <li>Sum({{ coin.replace("_USDT", "") }})</li>
+              </ul>
+            </div>
+            <div class="order-cols" v-for="item of tradeStore.buys">
+              <!-- <div
               class="back-red"
               :style="{ width: Math.random() * redWidth + '%' }"
-            ></div>
-            <ul>
-              <li style="color: rgb(246, 70, 93)">
-                {{ parseFloat(item[0]).toFixed(2) }}
-              </li>
-              <li style="color: rgb(183, 189, 198)">
-                {{ parseFloat(item[1]).toFixed(3) }}
-              </li>
-            </ul>
-          </div>
-          <div
-            class="current-color"
-            :class="dynamicClass"
-            style="font-size: 20px; line-height: 35px"
-          >
-            {{ curPrice }}
-          </div>
-          <div class="order-cols" v-for="item of datas.slice(8, 16)">
+            ></div> -->
+              <ul>
+                <li style="color: rgb(246, 70, 93)">
+                  {{ item.p }}
+                </li>
+                <li style="color: rgb(183, 189, 198)">
+                  {{ parseFloat(item.q).toFixed(3) }}
+                </li>
+                <li style="color: rgb(183, 189, 198)">
+                  {{ parseFloat(item.a).toFixed(3) }}
+                </li>
+              </ul>
+            </div>
             <div
+              class="current-color white"
+              style="font-size: 20px; line-height: 35px"
+            >
+              <span v-if="tradeStore.coins[coin] && tradeStore.coins[coin].p"
+                >${{ getFullNum(tradeStore.coins[coin].p) }}</span
+              >
+              <span v-else>$0</span>
+            </div>
+            <div class="order-cols" v-for="item of tradeStore.sells">
+              <!-- <div
               class="back-green"
               :style="{ width: Math.random() * greenWidth + '%' }"
-            ></div>
-            <ul>
-              <li style="color: rgb(14, 203, 129)">
-                {{ parseFloat(item[0]).toFixed(2) }}
-              </li>
-              <li style="color: rgb(183, 189, 198)">
-                {{ parseFloat(item[1]).toFixed(3) }}
-              </li>
-            </ul>
+            ></div> -->
+              <ul>
+                <li style="color: rgb(14, 203, 129)">
+                  {{ item.p }}
+                </li>
+                <li style="color: rgb(183, 189, 198)">
+                  {{ parseFloat(item.q).toFixed(3) }}
+                </li>
+                <li style="color: rgb(183, 189, 198)">
+                  {{ parseFloat(item.a).toFixed(3) }}
+                </li>
+              </ul>
+            </div>
           </div>
           <div>
             <div
@@ -236,19 +287,22 @@
               <ul style="color: rgb(132, 142, 156)">
                 <li>Price</li>
                 <li>Amount</li>
-                <!-- <li>Sum(BTC)</li> -->
+                <li>Time</li>
               </ul>
             </div>
-            <div class="order-cols" v-for="item of datas.slice(16, 22)">
+            <div class="order-cols" v-for="item of tradeStore.deals">
               <ul>
-                <li class="green" v-if="Math.random() > 0.5">
-                  {{ parseFloat(item[0]).toFixed(2) }}
+                <li class="green" v-if="item.M === '1'">
+                  {{ item.p }}
                 </li>
                 <li class="red" v-else>
-                  {{ parseFloat(item[0]).toFixed(2) }}
+                  {{ item.p }}
                 </li>
                 <li style="color: rgb(183, 189, 198)">
-                  {{ parseFloat(item[1]).toFixed(3) }}
+                  {{ parseFloat(item.q).toFixed(3) }}
+                </li>
+                <li style="color: rgb(183, 189, 198)">
+                  {{ transDate(item.t) }}
                 </li>
               </ul>
             </div>
@@ -275,7 +329,7 @@
       </ul>
     </div>
     <div class="tabs-content">
-      <div style="padding: 10px 20px">
+      <!-- <div style="padding: 10px 20px">
         <div
           style="
             font-size: 12px;
@@ -289,7 +343,7 @@
         >
           Futures will be live on April 29, 2023.
         </div>
-      </div>
+      </div> -->
       <NewTable :cols="tableCols[tabIndex]" :content="tabContents[tabIndex]" />
     </div>
     <div class="margin-ratio">
@@ -345,7 +399,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, onBeforeUnmount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getAssetsFile } from "../utils/index";
 import HeaderView from "../components/HeaderView.vue";
@@ -354,12 +408,31 @@ import FuturesChart from "./FuturesChart.vue";
 import FuturesRightNew from "./FuturesRightNew.vue";
 import NewTable from "../components/NewTable.vue";
 import { tableCols, tabContents } from "../config/tableCols";
+
+import socket from "../utils/socket";
+import useTradeStore from "../store/index";
+const tradeStore = useTradeStore();
 const cur = ref(2);
 const route = useRoute();
 const router = useRouter();
+const coin = ref("");
 const hideDrop = ref(true);
-const selectThis = (index) => {
-  cur.value = index;
+const selectThis = (item) => {
+  router.push("/futures/" + item.t1 + "USDT");
+  setTimeout(() => {
+    window.history.go(0);
+  }, 0);
+};
+
+const transDate = (val) => {
+  var date = new Date(val); // 参数需要毫秒数，所以这里将秒数乘于 1000
+  const h = addZero(date.getHours());
+  const m = addZero(date.getMinutes());
+  const s = addZero(date.getSeconds());
+  return h + ":" + m + ":" + s;
+};
+const addZero = (val) => {
+  return parseInt(val) < 10 ? "0" + val : val;
 };
 
 const searchCondition = [
@@ -384,49 +457,114 @@ const tabs = [
 ];
 const tabIndex = ref(0);
 
-const redWidth = ref(100);
-const greenWidth = ref(100);
+// const redWidth = ref(100);
+// const greenWidth = ref(100);
 
 // 动态数据
-let timer = null;
-const datas = ref([]);
-const dynamicClass = ref("white");
-const curPrice = ref(0);
-const getData = async () => {
-  const symbol = btnsConfig[cur.value].t1 + "USDT";
-  const response = await fetch(
-    "https://api.binance.com/api/v3/depth?limit=50&symbol=" + symbol
-  );
-  const jsonData = await response.json();
-  datas.value = jsonData.asks;
-  const price = parseFloat(jsonData["asks"][10][0]).toFixed(2);
-  if (curPrice.value !== 0) {
-    dynamicClass.value =
-      curPrice.value > price
-        ? "green"
-        : curPrice.value === price
-        ? "white"
-        : "red";
-  }
-  curPrice.value = price;
-  redWidth.value = Math.floor(Math.random() * 100);
-  greenWidth.value = Math.floor(Math.random() * 100);
-};
+// let timer = null;
+// const datas = ref([]);
+// const dynamicClass = ref("white");
+// const curPrice = ref(0);
+// const getData = async () => {
+//   setTimeout(() => {
+//     getData();
+//   }, 1500);
+//   const symbol = btnsConfig[cur.value].t1 + "USDT";
+//   if (symbol === "OGGYUSDT") {
+//     datas.value = [];
+//     curPrice.value = 0;
+//     return;
+//   }
+//   const response = await fetch(
+//     "https://api.binance.com/api/v3/depth?limit=50&symbol=" + symbol
+//   );
+//   const jsonData = await response.json();
+//   datas.value = jsonData.asks;
+//   const price = parseFloat(jsonData["asks"][10][0]);
+//   if (curPrice.value !== 0) {
+//     dynamicClass.value =
+//       curPrice.value > price
+//         ? "green"
+//         : curPrice.value === price
+//         ? "white"
+//         : "red";
+//   }
+//   curPrice.value = price;
+//   redWidth.value = Math.floor(Math.random() * 100);
+//   greenWidth.value = Math.floor(Math.random() * 100);
+// };
+let socketObj;
 onMounted(() => {
+  const params = route.params.coin;
+  // 获取当前的币
+  coin.value = params.replace("USDT", "_USDT");
+  // 下拉的索引
+  cur.value = btnsConfig.findIndex((item) => params.includes(item.t1));
   document.addEventListener("click", () => {
     hideDrop.value = true;
   });
-  const q = router.currentRoute.value.query;
-  if (q["b"]) {
-    cur.value = btnsConfig.findIndex((item) => item.t1 === q["b"]);
+  // getData();
+  socket(
+    "wss://wbs.mexc.com/ws",
+    (res) => {
+      if (res.c && res.c == "spot@public.zone.overview@UTC+8") {
+        tradeStore.setCoins(res.d);
+        console.log(tradeStore.coins[coin.value], "323232");
+      } else if (res.s && res.s == coin.value) {
+        tradeStore.setBooks(res);
+      }
+    },
+    (socket) => {
+      socketObj = socket;
+      // 获取每个币的当前数据
+      socket.send(
+        JSON.stringify({
+          method: "SUBSCRIPTION",
+          params: ["spot@public.zone.overview@UTC+8"],
+          id: 2,
+        })
+      );
+      // 获取trade book数据
+      socket.send(
+        JSON.stringify({
+          method: "SUBSCRIPTION",
+          params: [
+            "spot@public.increase.aggre.depth@" + coin.value,
+            "spot@public.aggre.deals@" + coin.value,
+          ],
+          id: 3,
+        })
+      );
+      // 获取交易数据
+      socket.send(
+        JSON.stringify({
+          method: "SUBSCRIPTION",
+          params: [`spot@public.kline@${coin.value}@Min15`],
+          id: 1,
+        })
+      );
+    }
+  );
+});
+function getFullNum(num) {
+  //处理非数字
+  if (isNaN(num)) {
+    return num;
   }
-  timer = setInterval(() => {
-    getData();
-  }, 500);
+  //处理不需要转换的数字
+  var str = "" + num;
+  if (!/e/i.test(str)) {
+    return num;
+  }
+  return num.toFixed(18).replace(/\.?0+$/, "");
+}
+onBeforeUnmount(() => {
+  tradeStore.clearBooks();
+  try {
+    socketObj.close();
+  } catch {}
 });
-onUnmounted(() => {
-  clearInterval(timer);
-});
+onUnmounted(() => {});
 </script>
 <style scoped>
 .drop-btn {
@@ -528,6 +666,7 @@ onUnmounted(() => {
   padding: 15px;
   border: 1px solid rgba(132, 142, 156, 0.5);
   border-left: none;
+  width: 400px;
 }
 .order-cols {
   position: relative;
@@ -664,6 +803,34 @@ onUnmounted(() => {
   .margin-ratio {
     width: 100%;
     top: 100%;
+  }
+}
+.loading-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: #181c27;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 100%;
+
+  animation: circle infinite 0.75s linear;
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
